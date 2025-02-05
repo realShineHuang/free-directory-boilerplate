@@ -50,10 +50,15 @@ export function AccountInfoForm({ lang, user, sanityUser }: AccountInfoFormProps
   })
 
   const onSubmit = handleSubmit(data => {
+    if (!sanityUser?._id) {
+      toast.error(formConfig.form.error);
+      return;
+    }
+
     startTransition(async () => {
       const { status } = await updateAccountInfoWithId({
         ...data,
-        sanityUserId: sanityUser?._id,
+        sanityUserId: sanityUser._id,
       });
       console.log('AccountInfoForm, status:', status);
       if (status === "success") {

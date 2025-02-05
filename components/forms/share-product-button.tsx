@@ -15,7 +15,7 @@ export function ShareProductButton({ lang, children }: ShareProductButtonProps) 
     const router = useRouter();
     const {data:session, status} = useSession();
 
-    const handleClick = async (e) => {
+    const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!session?.user) {
             signInModal.onOpen();
         } else {
@@ -26,7 +26,7 @@ export function ShareProductButton({ lang, children }: ShareProductButtonProps) 
     return (
         <ShimmerButton onClick={handleClick}
             className="h-10 py-2 px-4 shadow-sm text-primary-foreground dark:text-primary-foreground"
-            background="#7C3AED"
+            background="#e93d82"
             shimmerDuration="2s"
             shimmerSize="0.1em"
             shimmerColor="#ffffff">

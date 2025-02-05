@@ -1,6 +1,5 @@
 import AppTypeList from "@/components/apptype-list";
 import { FeaturePageHeader } from "@/components/feature-page-header";
-import { SubmitApplicationButton } from "@/components/forms/submit-application-button";
 import { AllApplicationConfigs } from "@/config/application";
 
 interface AppListLayoutProps {
@@ -24,9 +23,6 @@ export default async function AppListLayout({ params, children }: AppListLayoutP
                 <FeaturePageHeader className="container"
                     heading={applicationConfig.title}
                     text={applicationConfig.subtitle}>
-                    <SubmitApplicationButton lang={lang}>
-                        <span>{applicationConfig.submitButton}</span>
-                    </SubmitApplicationButton>
                 </FeaturePageHeader>
             </div>
 

@@ -1,27 +1,27 @@
 import ProductGridCient from "@/components/product-grid-client";
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { ProductListOfRecentQueryResult } from "@/sanity.types";
+import { ProductListOfFeaturedQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { productListOfRecentQuery } from "@/sanity/lib/queries";
+import { productListOfFeaturedQuery } from "@/sanity/lib/queries";
 import { Metadata } from "next";
 
-interface NewPageProps {
+interface FeaturedPageProps {
     params: { lang: string; };
 }
 
 // https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export async function generateMetadata({
     params,
-}: NewPageProps): Promise<Metadata> {
+}: FeaturedPageProps): Promise<Metadata> {
     const { lang } = params;
     console.log('generateMetadata, lang:', lang);
     const siteConfig = AllSiteConfigs[lang];
-    const currentUrl = `${siteConfig.url}/${lang}/group/new`;
-    const canonicalUrl = `${siteConfig.url}/en/group/new`;
+    const currentUrl = `${siteConfig.url}/${lang}/topics/featured`;
+    const canonicalUrl = `${siteConfig.url}/en/topics/featured`;
 
     return {
-        title: "New",
+        title: "Featured",
         description: siteConfig.description,
         alternates: {
             canonical: canonicalUrl,
@@ -29,18 +29,18 @@ export async function generateMetadata({
     }
 }
 
-export default async function NewPage({ params }: NewPageProps) {
-    // console.log('NewPage, params:', params); // params: { lang: 'en' }
+export default async function FeaturedPage({ params }: FeaturedPageProps) {
+    // console.log('FeaturedPage, params:', params); // params: { lang: 'en' }
     const { lang } = params;
     const queryParams = { ...COMMON_PARAMS, lang };
-    // console.log('NewPage, language:', lang); // language: en
-    // console.log('NewPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
+    // console.log('FeaturedPage, language:', lang); // language: en
+    // console.log('FeaturedPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const productListQueryResult = await sanityFetch<ProductListOfRecentQueryResult>({
-        query: productListOfRecentQuery,
+    const productListQueryResult = await sanityFetch<ProductListOfFeaturedQueryResult>({
+        query: productListOfFeaturedQuery,
         params: {
             ...queryParams,
-            limit: 24
+            limit: 48
         }
     });
 

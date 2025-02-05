@@ -5,6 +5,7 @@ import { openCustomerPortal } from "@/actions/open-customer-portal";
 
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
+import { toast } from "sonner";
 
 interface CustomerPortalButtonProps {
   userStripeId: string;
@@ -17,7 +18,13 @@ export function CustomerPortalButton({
   const generateUserStripeSession = openCustomerPortal.bind(null, userStripeId);
 
   const stripeSessionAction = () =>
-    startTransition(async () => await generateUserStripeSession());
+    startTransition(async () => {
+      try {
+        await generateUserStripeSession();
+      } catch (error) {
+        toast.error("Failed to open customer portal");
+      }
+    });
 
   return (
     <Button disabled={isPending} onClick={stripeSessionAction}>

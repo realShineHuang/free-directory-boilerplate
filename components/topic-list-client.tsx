@@ -5,27 +5,27 @@ import { GroupQueryResult } from '@/sanity.types';
 import Link from 'next/link';
 import { notFound, usePathname } from 'next/navigation';
 
-interface CategoryListClientProps {
+interface TopicListClientProps {
   lang: string;
   group: GroupQueryResult;
 }
 
-export default function CategoryListClient({ lang, group }: CategoryListClientProps) {
+export default function TopicListClient({ lang, group }: TopicListClientProps) {
   const pathname = usePathname();
-  // console.log('CategoryListClient, lang:', lang);
+  // console.log('TopicListClient, lang:', lang);
 
   if (!group) {
-    console.log('CategoryListClient, group is null');
+    console.log('TopicListClient, group is null');
     return notFound();
   }
-  // pathname is like /en/group/web-app/category/web, group is web-app, category is web
-  // or pathname is like /en/group/featured, group is featured, category is none
+  // pathname is like /en/topics/web-app/category/web, group is web-app, category is web
+  // or pathname is like /en/topics/featured, group is featured, category is none
   // get group and category from pathname
   const segments = pathname.split('/');
   // const group = segments[3];
   const category = segments[5];
-  // console.log('CategoryListClient, group:', group, ', category:', category);
-  console.log('CategoryListClient, group:', group.slug, ', category:', category);
+  // console.log('TopicListClient, group:', group, ', category:', category);
+  console.log('TopicListClient, group:', group.slug, ', category:', category);
 
   return (
     <>
@@ -38,8 +38,8 @@ export default function CategoryListClient({ lang, group }: CategoryListClientPr
               group.categories.map((item) => (
                 <Link key={item._id}
                   href={group.slug === 'new' || group.slug === 'featured'
-                    ? `/${lang}/group/${group.slug}`
-                    : `/${lang}/group/${group.slug}/category/${item.slug}`}
+                    ? `/${lang}/topics/${group.slug}`
+                    : `/${lang}/topics/${group.slug}/category/${item.slug}`}
                   className={
                     cn(
                       'border text-sm py-1 px-3 cursor-pointer rounded-full font-medium line-clamp-1',

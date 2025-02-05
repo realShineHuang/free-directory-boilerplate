@@ -28,8 +28,7 @@ export function MobileNav({ lang, items, children }: MobileNavProps) {
     >
       <div className="relative border z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md">
         <Link href={`/${lang}`} className="flex justify-center items-center space-x-2">
-          <Logo />
-          <span className="font-bold text-gradient-indigo-purple">
+          <span className="font-bold text-foreground dark:text-foreground">
             {siteConfig.name}
           </span>
         </Link>

@@ -11,14 +11,14 @@ interface AppLinkButtonProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function AppLinkButton({ lang, link, children }: AppLinkButtonProps) {
     const router = useRouter();
-    const handleClick = async (e) => {
+    const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         router.push(`${link}`);
     }
 
     return (
         <ShimmerButton onClick={handleClick}
             className="h-10 py-2 px-4 shadow-sm text-primary-foreground dark:text-primary-foreground"
-            background="#7C3AED"
+            background="#e93d82"
             shimmerDuration="2s"
             shimmerSize="0.1em"
             shimmerColor="#ffffff">

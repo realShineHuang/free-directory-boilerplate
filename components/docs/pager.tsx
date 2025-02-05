@@ -5,6 +5,7 @@ import { docsConfig } from "@/config/docs";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
+import { SidebarNavItem } from "@/types";
 
 interface DocsPagerProps {
   doc: Doc
@@ -21,7 +22,7 @@ export function DocsPager({ doc }: DocsPagerProps) {
     <div className="flex flex-row items-center justify-between">
       {pager?.prev && (
         <Link
-          href={pager.prev.href}
+          href={pager.prev.href ?? ""}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
           <Icons.chevronLeft className="mr-2 size-4" />
@@ -30,7 +31,7 @@ export function DocsPager({ doc }: DocsPagerProps) {
       )}
       {pager?.next && (
         <Link
-          href={pager.next.href}
+          href={pager.next.href ?? ""}
           className={cn(buttonVariants({ variant: "outline" }), "ml-auto")}
         >
           {pager.next.title}
@@ -57,8 +58,8 @@ export function getPagerForDoc(doc: Doc) {
   }
 }
 
-export function flatten(links: { items?}[]) {
-  return links.reduce((flat, link) => {
+export function flatten(links: SidebarNavItem[]): SidebarNavItem[] {
+  return links.reduce<SidebarNavItem[]>((flat, link) => {
     return flat.concat(link.items ? flatten(link.items) : link)
   }, [])
 }

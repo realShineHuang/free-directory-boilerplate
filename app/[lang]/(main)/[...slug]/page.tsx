@@ -6,19 +6,23 @@ import { Mdx } from "@/components/content/mdx-components";
 import "@/styles/mdx.css";
 import { Metadata } from "next";
 
-import { enSiteConfig } from "@/config/site";
+import { AllSiteConfigs } from "@/config/site";
 import { absoluteUrl } from "@/lib/utils";
 
 interface PageProps {
   params: {
-    // lang: string,
+    lang: string,
     slug: string[]
   }
 }
 
-async function getPageFromParams(params) {
-  const slug = params?.slug?.join("/");
-  const page = allPages.find((page) => page.slugAsParams === slug);
+async function getPageFromParams(params: PageProps["params"]) {
+  const { lang, slug } = params;
+  const slugPath = slug?.join("/");
+  
+  // 根据语言选择正确的页面
+  const pagePath = lang === "zh" ? `${slugPath}-zh` : slugPath;
+  const page = allPages.find((page) => page.slugAsParams === pagePath);
 
   if (!page) {
     return null;
@@ -27,9 +31,21 @@ async function getPageFromParams(params) {
 }
 
 export async function generateStaticParams(): Promise<PageProps["params"][]> {
-  return allPages.flatMap((page) => ({
-    slug: page.slugAsParams.split("/"),
-  }))
+  return allPages.flatMap((page) => {
+    // 为每个页面生成英文和中文的路径
+    const slug = page.slugAsParams;
+    if (slug.endsWith("-zh")) {
+      return [{
+        lang: "zh",
+        slug: [slug.replace(/-zh$/, "")]
+      }];
+    } else {
+      return [{
+        lang: "en",
+        slug: [slug]
+      }];
+    }
+  });
 }
 
 export async function generateMetadata({
@@ -39,6 +55,9 @@ export async function generateMetadata({
   if (!page) {
     return {};
   }
+
+  const { lang } = params;
+  const siteConfig = AllSiteConfigs[lang];
 
   return {
     title: page.title,
@@ -51,14 +70,14 @@ export async function generateMetadata({
       title: page.title,
       description: page.description,
       url: absoluteUrl(page.slug),
-      images: [enSiteConfig.ogImage],
+      images: [siteConfig.ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: page.title,
       description: page.description,
       site: absoluteUrl(page.slug),
-      images: [enSiteConfig.ogImage],
+      images: [siteConfig.ogImage],
     },
   }
 }

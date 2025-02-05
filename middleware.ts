@@ -10,10 +10,14 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { i18n } from "./i18n-config";
 
-import { env } from "process";
 import authConfig from "./auth.config";
 
-function getLocale(request: NextRequest): string | undefined {
+function getLocale(request: NextRequest): string {
+  // 直接返回 'en' 作为默认语言
+  return 'en';
+  
+  // 原有的语言协商逻辑注释掉
+  /*
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
@@ -28,6 +32,7 @@ function getLocale(request: NextRequest): string | undefined {
 
   const locale = matchLocale(languages, locales, i18n.defaultLocale);
   return locale;
+  */
 }
 
 const { auth: middleware } = NextAuth(authConfig);
@@ -109,7 +114,7 @@ export default middleware((request: NextRequest & { auth: Session | null }): Res
   const { nextUrl } = request;
   const isLoggedIn = !!request.auth;
   console.log('middleware, nextUrl:', nextUrl.href, 'isLoggedIn:', isLoggedIn);
-  console.log('middleware, env.MODE:', env.MODE, 'env.NODE_ENV:', env.NODE_ENV);
+  console.log('middleware, env.MODE:', process.env.MODE, 'env.NODE_ENV:', process.env.NODE_ENV);
 
   // remove all possible locales when comparing pathname
   let nextUrlPathname = nextUrl.pathname;  

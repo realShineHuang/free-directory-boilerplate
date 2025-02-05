@@ -1,9 +1,9 @@
 import { ProductConfig } from "types";
 
 const enConfig: ProductConfig = {
-    title: 'Products',
-    subtitle: 'Explore the best products to help you ship next application faster and better',
-    submitButton: 'Submit Product',
+    title: 'Research Topics',
+    subtitle: 'Discover and explore the latest Deep Research reports faster and better',
+    submitButton: 'Submit Report',
     details: 'Details',
     introduction: 'Introduction',
     github: 'Github',
@@ -17,16 +17,16 @@ const enConfig: ProductConfig = {
 }
 
 const zhConfig: ProductConfig = {
-    title: '工具',
-    subtitle: '发掘最优秀的工具，助力你快速发布你的下一个应用',
-    submitButton: '推荐工具',
+    title: '研究主题',
+    subtitle: '更快更好地发现和探索最新深度研究报告',
+    submitButton: '提交报告',
     details: '详情',
     introduction: '简介',
     github: '代码',
     source: '来源',
     price: '价格',
     website: '官网',
-    submitter: '推荐者',
+    submitter: '提交者',
     free: '免费',
     opensource: '开源',
     date: '日期',

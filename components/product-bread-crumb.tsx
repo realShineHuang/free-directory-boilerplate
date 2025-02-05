@@ -1,6 +1,7 @@
 import { ProductQueryResult } from "@/sanity.types";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import { AllProductConfigs } from "@/config/product";
+import Link from "next/link";
 
 interface ProductBreadCrumbProps {
   lang: string;
@@ -13,19 +14,19 @@ export default function ProductBreadCrumb({ lang, product }: ProductBreadCrumbPr
   return <Breadcrumb className="">
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink href={`/${lang}/group/new`}>
+        <BreadcrumbLink href={`/${lang}/topics/new`}>
           {productConfig.title}
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink href={`/${lang}/group/${product?.category?.group?.slug}`}>
+        <BreadcrumbLink href={`/${lang}/topics/${product?.category?.group?.slug}`}>
           {product?.category?.group?.name}
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink href={`/${lang}/group/${product?.category?.group?.slug}/category/${product?.category?.slug}`}>
+        <BreadcrumbLink href={`/${lang}/topics/${product?.category?.group?.slug}/category/${product?.category?.slug}`}>
           {product?.category?.name}
         </BreadcrumbLink>
       </BreadcrumbItem>

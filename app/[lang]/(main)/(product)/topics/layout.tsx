@@ -1,20 +1,21 @@
+import { Suspense } from "react";
 import { FeaturePageHeader } from "@/components/feature-page-header";
-import { ShareProductButton } from "@/components/forms/share-product-button";
-import GroupListClient from "@/components/group-list-client";
+import TopicGroupListClient from "@/components/topic-group-list-client";
 import { AllProductConfigs } from "@/config/product";
 import { COMMON_PARAMS } from "@/lib/constants";
 import { getCurrentUser } from "@/lib/session";
 import { GroupListWithCategoryQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { groupListWithCategoryQuery } from "@/sanity/lib/queries";
+import { notFound } from "next/navigation";
 
 interface ProductListLayoutProps {
-    params: { lang: string };
     children: React.ReactNode;
+    params: { lang: string };
 }
 
-export default async function ProductListLayout({ params, children }: ProductListLayoutProps) {
-    console.log('ProductListLayout, params:', params); // params: { lang: 'en' }
+export default async function ProductListLayout({ children, params }: ProductListLayoutProps) {
+    // console.log('ProductListLayout, params:', params);
     const { lang } = params;
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('ProductListLayout, language:', lang); // language: en
@@ -28,6 +29,10 @@ export default async function ProductListLayout({ params, children }: ProductLis
         params: queryParams,
     });
     // console.log('ProductListLayout, groupListQueryResult:', groupListQueryResult);
+    if (!groupListQueryResult) {
+        console.error('ProductListLayout, groupListQueryResult is null');
+        return notFound();
+    }
 
     return (
         <div className="min-h-screen pb-16">
@@ -36,21 +41,21 @@ export default async function ProductListLayout({ params, children }: ProductLis
                 <FeaturePageHeader className="container"
                     heading={productConfig.title}
                     text={productConfig.subtitle}>
-                    <ShareProductButton lang={lang}>
-                        <span>{productConfig.submitButton}</span>
-                    </ShareProductButton>
                 </FeaturePageHeader>
             </div>
 
             <div className="container mt-8 grid md:grid-cols-12 md:gap-8">
-                {/* Group List */}
-                <div className="md:col-span-2">
-                    <GroupListClient lang={lang} itemList={groupListQueryResult} />
+                {/* Left Sidebar */}
+                <div className="w-full md:w-64">
+                    {/* Group List */}
+                    <TopicGroupListClient lang={lang} itemList={groupListQueryResult} />
                 </div>
 
-                {/* Category List & Product Grid */}
+                {/* Main Content */}
                 <div className="md:col-span-10">
-                    {children}
+                    <Suspense>
+                        {children}
+                    </Suspense>
                 </div>
             </div>
         </div>

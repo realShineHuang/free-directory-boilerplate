@@ -6,6 +6,7 @@ import { SubscriptionPlan, UserSubscriptionPlan } from "@/types";
 
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
+import { toast } from "sonner";
 
 interface BillingFormButtonProps {
   offer: SubscriptionPlan;
@@ -19,17 +20,32 @@ export function BillingFormButton({
   subscriptionPlan,
 }: BillingFormButtonProps) {
   let [isPending, startTransition] = useTransition();
+  const stripeId = offer.stripeIds[year ? "yearly" : "monthly"];
+  
+  if (!stripeId) {
+    return (
+      <Button variant="outline" rounded="full" className="w-full" disabled>
+        Unavailable
+      </Button>
+    );
+  }
+
   const generateUserStripeSession = generateUserStripe.bind(
     null,
-    offer.stripeIds[year ? "yearly" : "monthly"],
+    stripeId,
   );
 
   const stripeSessionAction = () =>
-    startTransition(async () => await generateUserStripeSession());
+    startTransition(async () => {
+      try {
+        await generateUserStripeSession();
+      } catch (error) {
+        toast.error("Failed to generate stripe session");
+      }
+    });
 
   const userOffer =
-    subscriptionPlan.stripePriceId ===
-    offer.stripeIds[year ? "yearly" : "monthly"];
+    subscriptionPlan.stripePriceId === stripeId;
 
   return (
     <Button

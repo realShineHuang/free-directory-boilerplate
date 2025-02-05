@@ -52,7 +52,7 @@ export function SiteFooter({ className, lang }: SiteFooterProps) {
       <div className="border-t py-8">
         <div className="container flex items-center justify-between">
           <span className="text-muted-foreground text-sm">
-            Copyright &copy; 2024. All Rights Reserved.
+            Copyright &copy; {new Date().getFullYear()}. All Rights Reserved.
           </span>
 
           <div className="flex items-center gap-2">

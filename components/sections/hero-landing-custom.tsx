@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import { Icons } from "@/components/shared/icons";
 import { buttonVariants } from "@/components/ui/button";
@@ -13,6 +14,7 @@ interface HeroLandingProps extends React.HTMLAttributes<HTMLElement> {
 export function HeroLanding({ lang }: HeroLandingProps) {
   // console.log('HeroLanding, lang:', lang);
   const siteConfig = AllSiteConfigs[lang];
+  const t = useTranslations("Index");
 
   return (
     <section className="space-y-6 py-12 sm:py-20 lg:py-20">
@@ -20,7 +22,7 @@ export function HeroLanding({ lang }: HeroLandingProps) {
         {/* Want animations? Check here: https://github.com/mickasmt/next-saas-stripe-starter/blob/76eb9f2b70b29c7a734ff0e5b047796ed2dac28d/app/(marketing)/page.tsx */}
         {/* href="https://twitter.com/miickasmt/status/1719892161095745801" */}
         <Link
-          href="https://x.com/javay_hu"
+          href="https://x.com/realShineHuang"
           className={cn(
             buttonVariants({ variant: "outline", size: "sm", rounded: "full" }),
             "px-4 transition-all scale-100 hover:scale-105",
@@ -55,15 +57,13 @@ export function HeroLanding({ lang }: HeroLandingProps) {
           style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
         >
           <Link
-            href={`/${lang}/group/new`}
-            prefetch={true}
+            href={`/${lang}/topics/featured`}
             className={cn(
-              buttonVariants({ size: "lg", rounded: "full" }),
-              "gap-2 transition-all scale-100 hover:scale-105",
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "mt-4"
             )}
           >
-            <span>🔥{" "}Expolre Products</span>
-            <Icons.arrowRight className="size-4" />
+            {t("hero.button")}
           </Link>
           <Link
             href={siteConfig.links.github}

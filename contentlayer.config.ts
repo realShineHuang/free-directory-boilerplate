@@ -185,7 +185,7 @@ export default makeSource({
         {
           theme: "github-dark",
           keepBackground: false,
-          onVisitLine(node) {
+          onVisitLine(node: { children: Array<{ type: string; value: string }> }) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty lines to be copy/pasted
             if (node.children.length === 0) {
               node.children = [{ type: "text", value: " " }];

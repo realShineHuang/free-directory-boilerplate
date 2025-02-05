@@ -14,8 +14,8 @@ export default function GroupListClient({ lang, itemList }: GroupListClientProps
   // console.log('GroupListClient, lang:', lang);
   // console.log('GroupListClient, itemList:', itemList);
   const pathname = usePathname();
-  // pathname is like /en/group/web-app/category/web, group is web-app, category is web
-  // or pathname is like /en/group/featured, group is featured, category is none
+  // pathname is like /en/topics/web-app/category/web, group is web-app, category is web
+  // or pathname is like /en/topics/featured, group is featured, category is none
   // get group and category from pathname
   const segments = pathname.split('/');
   const group = segments[3];
@@ -31,8 +31,8 @@ export default function GroupListClient({ lang, itemList }: GroupListClientProps
               item.name && item.categories.length > 0 &&
               (
                 <Link
-                  href={item.slug === 'new' || item.slug === 'featured' ? `/${lang}/group/${item.slug}`
-                    : `/${lang}/group/${item.slug}/category/${item.categories[0].slug}`}
+                  href={item.slug === 'new' || item.slug === 'featured' ? `/${lang}/topics/${item.slug}`
+                    : `/${lang}/topics/${item.slug}/category/${item.categories[0].slug}`}
                   className={
                     cn(
                       'border text-sm py-2 px-3 cursor-pointer rounded-md line-clamp-1',

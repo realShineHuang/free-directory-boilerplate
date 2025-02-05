@@ -5,12 +5,12 @@ import { groupListWithCategoryQuery } from "@/sanity/lib/queries";
 import { redirect } from "next/navigation";
 
 // NOTICE(javayhu) can be deleted
-export default async function GroupPage({ params }: { params: { lang: string, group: string }; }) {
-    console.log('GroupPage, params:', params); // params: { lang: 'en' }
+export default async function TopicGroupPage({ params }: { params: { lang: string, group: string }; }) {
+    console.log('TopicGroupPage, params:', params); // params: { lang: 'en' }
     const { lang, group } = params;
     const queryParams = { ...COMMON_PARAMS, lang };
-    // console.log('GroupPage, language:', lang); // language: en
-    // console.log('GroupPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
+    // console.log('TopicGroupPage, language:', lang); // language: en
+    // console.log('TopicGroupPage, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
     const groupListWithCategoryQueryResult = await sanityFetch<GroupListWithCategoryQueryResult>({
         query: groupListWithCategoryQuery,
@@ -19,9 +19,9 @@ export default async function GroupPage({ params }: { params: { lang: string, gr
     
     const groupItem = groupListWithCategoryQueryResult.find((item) => item.slug === group);
     if (!groupItem || groupItem.categories.length === 0) {
-        console.log('GroupPage, groupItem is undefined, redirect to new');
-        return redirect(`/${lang}/group/new`);
+        console.log('TopicGroupPage, groupItem is undefined, redirect to new');
+        return redirect(`/${lang}/topics/new`);
     }
     
-    return redirect(`/${lang}/group/${group}/category/${groupItem.categories[0].slug}`);
+    return redirect(`/${lang}/topics/${group}/category/${groupItem.categories[0].slug}`);
 }

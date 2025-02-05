@@ -1,104 +1,56 @@
-import { NavConfig } from "types";
+import { MainNavItem, NavConfig } from "@/types";
 
 const enNavConfig: NavConfig = {
   mainNav: [
     {
-      title: "Products",
-      href: "/group/new",
-      path: "/group/",
-    },
-    {
-      title: "Apps",
-      href: "/apptype/new",
-      path: "/apptype/",
-    },
-    // {
-    //   title: "Search",
-    //   href: "https://link.indiehackers.site/saas101",
-    //   path: "https://link.indiehackers.site/saas101",
-    //   external: true,
-    // },
-    // {
-    //   title: "Guides",
-    //   href: "/guides",
-    //   path: "/guides",
-    // },
+      title: "Reports",
+      href: "/topics/new",
+      path: "/topics/",
+      items: [
+        {
+          title: "New",
+          href: "/topics/new",
+          description: "Latest topics added to our platform"
+        },
+        {
+          title: "Featured",
+          href: "/topics/featured",
+          description: "Our featured topics"
+        }
+      ]
+    } as MainNavItem,
     {
       title: "About",
       href: "/about",
       path: "/about",
-    },
-    // {
-    //   title: "Blog",
-    //   href: "/blog",
-    //   path: "/blog",
-    // },
-    {
-      title: "IndieHub",
-      href: "https://indiehub.best?ref=opensource",
-      path: "https://indiehub.best?ref=opensource",
-      external: true,
-    },
-    {
-      title: "Mkdirs",
-      href: "https://mkdirs.com?ref=opensource",
-      path: "https://mkdirs.com?ref=opensource",
-      external: true,
-    },
-    {
-      title: "GitHub",
-      href: "https://github.com/javayhu/free-directory-boilerplate",
-      path: "https://github.com/javayhu/free-directory-boilerplate",
-      external: true,
-    },
+    } as MainNavItem,
   ],
 }
 
 const zhNavConfig: NavConfig = {
   mainNav: [
     {
-      title: "工具",
-      href: "/group/new",
-      path: "/group/",
-    },
-    {
-      title: "应用",
-      href: "/apptype/new",
-      path: "/apptype/",
-    },
-    {
-      title: "搜索",
-      href: "https://link.indiehackers.site/saas101",
-      path: "https://link.indiehackers.site/saas101",
-      external: true,
-    },
-    // {
-    //   title: "教程",
-    //   href: "/guides",
-    //   path: "/guides",
-    // },
+      title: "报告",
+      href: "/topics/new",
+      path: "/topics/",
+      items: [
+        {
+          title: "最新",
+          href: "/topics/new",
+          description: "最新添加的主题"
+        },
+        {
+          title: "精选",
+          href: "/topics/featured",
+          description: "精选主题推荐"
+        }
+      ]
+    } as MainNavItem,
     {
       title: "关于",
       href: "/about-zh",
       path: "/about-zh",
-    },
-    // {
-    //   title: "博客",
-    //   href: "/blog",
-    //   path: "/blog",
-    // },
-    {
-      title: "IndieHub",
-      href: "https://indiehub.best",
-      path: "https://indiehub.best",
-      external: true,
-    },
-    {
-      title: "Mkdirs",
-      href: "https://mkdirs.com",
-      path: "https://mkdirs.com",
-      external: true,
-    },
+    } as MainNavItem,
   ],
 }
 

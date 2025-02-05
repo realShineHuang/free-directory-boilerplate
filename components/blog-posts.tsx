@@ -2,8 +2,9 @@ import { formatDate } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FeaturePageHeader } from './feature-page-header';
+import { Post } from 'contentlayer/generated';
 
-export function BlogPosts({ posts }) {
+export function BlogPosts({ posts }: { posts: Post[] }) {
   return (
     <div className="pt-4 pb-16">
       {/* Page Header */}

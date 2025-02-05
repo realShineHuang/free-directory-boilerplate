@@ -116,9 +116,9 @@ export function SubmitApplicationForm({ lang, user, appTypeList, sanityUser }: S
     });
   });
 
-  const handleUpload = async (e) => {
-    console.log('SubmitApplicationForm, handleUpload, file:', e.target.files[0]);
-    const file = e.target.files[0];
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('SubmitApplicationForm, handleUpload, file:', e.target.files?.[0]);
+    const file = e.target.files?.[0];
     if (!file) {
       console.log('SubmitApplicationForm, handleUpload, file is null');
       return;
@@ -146,9 +146,9 @@ export function SubmitApplicationForm({ lang, user, appTypeList, sanityUser }: S
     setIsUploading(false);
   };
 
-  const handleUploadCoverImage = async (e) => {
-    console.log('SubmitApplicationForm, handleUploadCoverImage, file:', e.target.files[0]);
-    const file = e.target.files[0];
+  const handleUploadCoverImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('SubmitApplicationForm, handleUploadCoverImage, file:', e.target.files?.[0]);
+    const file = e.target.files?.[0];
     if (!file) {
       console.log('SubmitApplicationForm, handleUploadCoverImage, file is null');
       return;
@@ -157,24 +157,26 @@ export function SubmitApplicationForm({ lang, user, appTypeList, sanityUser }: S
     const maxSizeInBytes = 1 * 1024 * 1024; // 1MB
     if (file.size > maxSizeInBytes) {
       e.target.value = '';
-      toast.error('Image size should be less than 1MB.');
+      console.error('SubmitApplicationForm, Image size should be less than 1MB.');
+      toast.error('Image size should be less than 1MB.'); // TODO: translate
       return;
     }
 
     setIsUploading(true);
-    const coverImageAsset = await uploadImage(file);
-    if (!coverImageAsset) {
+    const imageAsset = await uploadImage(file);
+    if (!imageAsset) {
       e.target.value = '';
+      console.log('SubmitApplicationForm, Upload Image failed, please try again.');
       toast.error('Upload Image failed, please try again.'); // TODO: translate
       return;
     }
-    console.log('SubmitApplicationForm, handleUploadCoverImage, coverImageId:', coverImageAsset._id);
-    setCoverImageId(coverImageAsset._id);
-    setCoverImageUrl(coverImageAsset.url);
+    console.log('SubmitApplicationForm, handleUploadCoverImage, imageId:', imageAsset._id);
+    setCoverImageId(imageAsset._id);
+    setCoverImageUrl(imageAsset.url);
     setIsUploading(false);
   };
 
-  const uploadImage = async (file) => {
+  const uploadImage = async (file: File) => {
     const asset = await client.assets.upload('image', file);
     console.log('SubmitApplicationForm, uploadImage, asset url:', asset.url);
     return asset;

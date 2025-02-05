@@ -4,37 +4,37 @@ import { SiteConfig } from "types";
 const site_url = env.NEXT_PUBLIC_APP_URL;
 
 export const enSiteConfig: SiteConfig = {
-  name: "INDIE HACKERS",
-  title: "Indie Hackers - Discover Top Products for Efficient Indie Hacking",
+  name: "DeepResearch.report",
+  title: "DeepResearch - The Best Deep Research Report Directory",
   description:
-    "Indie Hackers - Explore the best products to help you ship next application faster and better",
+    "A comprehensive directory of Deep Research reports and findings.",
   url: site_url,
   ogImage: `${site_url}/og.png`,
   links: {
-    twitter: "https://x.com/javay_hu",
-    github: "https://github.com/javayhu/free-directory-boilerplate",
-    coffee: "https://buymeacoffee.com/javayhu",
+    twitter: "https://x.com/realShineHuang",
+    github: "https://github.com/shinehuang001/free-directory-boilerplate",
+    coffee: "https://buymeacoffee.com/shinehuang",
   },
-  mailSupport: "support@mkdirs.com",
-  creator: "javayhu",
-  subtitle: "Indie Hackers Tools - Explore the best products to help you ship next application faster and better",
+  mailSupport: "shine@deepresearch.report",
+  creator: "shinehuang",
+  subtitle: "The best directory for discovering and exploring Deep Research reports.",
 };
 
 const zhSiteConfig: SiteConfig = {
-  name: "INDIE HACKERS TOOLS",
-  title: "独立开发者导航站，发掘最优秀的工具，助力你快速发布下一个应用",
+  name: "DeepResearch.report",
+  title: "DeepResearch - 最佳深度研究报告导航网站",
   description:
-    "独立开发者导航站，发掘最优秀的工具，助力你快速发布下一个应用",
+    "全面的深度研究报告和研究成果目录。",
   url: site_url,
   ogImage: `${site_url}/og.png`,
   links: {
-    twitter: "https://x.com/javay_hu",
-    github: "https://github.com/javayhu/free-directory-boilerplate",
-    coffee: "https://buymeacoffee.com/javayhu",
+    twitter: "https://x.com/realShineHuang",
+    github: "https://github.com/shinehuang001/free-directory-boilerplate",
+    coffee: "https://buymeacoffee.com/shinehuang",
   },
-  mailSupport: "support@mkdirs.com",
-  creator: "javayhu",
-  subtitle: "独立开发者导航站，发掘最优秀的工具，助力你快速发布下一个应用",
+  mailSupport: "shine@deepresearch.report",
+  creator: "shinehuang",
+  subtitle: "发现和探索深度研究报告的最佳导航网站",
 };
 
 export const AllSiteConfigs: {[key: string]: SiteConfig} = {

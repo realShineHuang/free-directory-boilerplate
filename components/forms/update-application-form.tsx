@@ -191,9 +191,9 @@ export function UpdateApplicationForm({ lang, user, application, appTypeList, sa
     });
   };
 
-  const handleUpload = async (e) => {
-    console.log('UpdateApplicationForm, handleUpload, file:', e.target.files[0]);
-    const file = e.target.files[0];
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('UpdateApplicationForm, handleUpload, file:', e.target.files?.[0]);
+    const file = e.target.files?.[0];
     if (!file) {
       console.log('UpdateApplicationForm, handleUpload, file is null');
       return;
@@ -221,9 +221,9 @@ export function UpdateApplicationForm({ lang, user, application, appTypeList, sa
     setIsUploading(false);
   };
 
-  const handleUploadCoverImage = async (e) => {
-    console.log('SubmitApplicationForm, handleUploadCoverImage, file:', e.target.files[0]);
-    const file = e.target.files[0];
+  const handleUploadCoverImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('SubmitApplicationForm, handleUploadCoverImage, file:', e.target.files?.[0]);
+    const file = e.target.files?.[0];
     if (!file) {
       console.log('SubmitApplicationForm, handleUploadCoverImage, file is null');
       return;
@@ -249,22 +249,25 @@ export function UpdateApplicationForm({ lang, user, application, appTypeList, sa
     setIsUploading(false);
   };
 
-  const uploadImage = async (file) => {
-    const asset = await client.assets.upload('image', file);
-    console.log('UpdateApplicationForm, uploadImage, asset url:', asset.url);
-    // setImageUrl(asset.url);
-    // return asset._id;
-    return asset;
+  const uploadImage = async (file: File) => {
+    try {
+      const asset = await client.assets.upload('image', file);
+      console.log('UpdateApplicationForm, uploadImage, asset url:', asset.url);
+      return asset;
+    } catch (error) {
+      console.error('UpdateApplicationForm, uploadImage error:', error);
+      return null;
+    }
   };
 
-  const onDelete = async (e) => {
-    console.log("UpdateApplicationForm, onDelete");
+  const onDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     startDeleteTransition(async () => {
       const { status } = await deleteApplicationWithId({
         lang: lang,
         applicationId: application._id,
       });
-      console.log('UpdateApplicationForm, onDelete, status:', status);
+      console.log('UpdateApplicationForm, delete status:', status);
       if (status === "success") {
         toast.success(formConfig.form.deleteSuccess);
         router.replace(`/${lang}/dashboard/applist`);
@@ -272,7 +275,7 @@ export function UpdateApplicationForm({ lang, user, application, appTypeList, sa
         toast.success(formConfig.form.deleteError);
       }
     });
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -7,6 +7,7 @@
  */
 export const publicRoutes = [
   "/",
+  "/topics",
   "/group",
   "/product",
   "/apptype",

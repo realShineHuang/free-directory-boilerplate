@@ -122,7 +122,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     categoryListQueryResult.forEach((category) => {
         i18n.locales.forEach((locale) => {
             const lang = `/${locale}`;
-            const routeUrl = `/group/${category.group?.slug}/category/${category.slug}`;
+            const routeUrl = `/topics/${category.group?.slug}/category/${category.slug}`;
             console.log(`sitemap, url:${site_url}${lang}${routeUrl}`);
             sitemapList.push({
                 url: `${site_url}${lang}${routeUrl}`,

@@ -59,7 +59,7 @@ export default function ProductGridCient({ lang, itemList }: ProductGridCientPro
                 (item.price === 'Free' || item.github) &&
                 <div className="flex px-4 pb-4 gap-2">
                   {/* {item.tags && item.tags.map((tag) => (
-                <Link key={tag._id} href={`/product?category=${tag.slug}`}>
+                <Link key={tag._id} href={`/product?topics=${tag.slug}`}>
                   <Badge key={tag._id} variant="outline" className="text-xs py-1 px-3 
                         text-primary dark:text-foreground/80
                         hover:border-transparent dark:hover:border-transparent

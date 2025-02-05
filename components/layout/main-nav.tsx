@@ -9,7 +9,6 @@ import { Icons } from "@/components/shared/icons";
 import { AllSiteConfigs } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { MainNavItem } from "types";
-import { Logo } from "../shared/logo";
 
 interface MainNavProps {
   lang: string;
@@ -44,8 +43,7 @@ export function MainNav({ lang, items, children }: MainNavProps) {
     <div className="flex gap-6 md:gap-10">
       {/* logo */}
       <Link href={`/${lang}`} className="hidden items-center space-x-2 md:flex">
-        <Logo />
-        <span className="hidden text-xl font-bold text-gradient-indigo-purple md:inline-block">
+        <span className="hidden text-xl font-bold text-foreground dark:text-foreground md:inline-block">
           {siteConfig.name}
         </span>
       </Link>
