@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://deepresearch.report
+
+# Sitemaps
+Sitemap: https://deepresearch.report/sitemap.xml 
