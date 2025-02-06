@@ -1,9 +1,13 @@
 import { toc } from "mdast-util-toc";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
-import { Plugin } from "unified";
-import { Node } from "unist";
-import { VFile } from "vfile";
+
+type Plugin = any;
+type Node = any;
+type VFile = {
+  data: any;
+  [key: string]: any;
+};
 
 const textTypes = ["text", "emphasis", "strong", "inlineCode"];
 
