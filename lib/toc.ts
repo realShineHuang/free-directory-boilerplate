@@ -1,6 +1,3 @@
-// @ts-nocheck
-// TODO: Fix this when we turn strict mode on.
-
 import { toc } from "mdast-util-toc";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
@@ -16,14 +13,18 @@ function flattenNode(node) {
   return p.join(``);
 }
 
-interface Item {
-  title: string
-  url: string
-  items?: Item[]
+interface TableOfContents {
+  items?: {
+    title: string;
+    url: string;
+    items?: TableOfContents["items"];
+  }[];
 }
 
-interface Items {
-  items?: Item[]
+interface Item {
+  title: string;
+  url: string;
+  items?: Item[];
 }
 
 function getItems(node, current): Items {
@@ -67,8 +68,6 @@ const getToc = () => (node, file) => {
   const table = toc(node);
   file.data = getItems(table.map, {});
 }
-
-export type TableOfContents = Items;
 
 export async function getTableOfContents(
   content: string

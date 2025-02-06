@@ -3,7 +3,11 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/shared/icons"
 
-interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> { }
+type EmptyPlaceholderProps = React.HTMLAttributes<HTMLDivElement>;
+
+type EmptyPlaceholderIconProps = React.HTMLAttributes<HTMLDivElement>;
+
+type EmptyPlaceholderTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 export function EmptyPlaceholder({
   className,

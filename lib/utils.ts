@@ -34,7 +34,8 @@ export function formatDate(input: string | number): string {
 }
 
 export function absoluteUrl(path: string) {
-  return `${env.NEXT_PUBLIC_APP_URL}${path}`;
+  const url = process.env.NEXT_PUBLIC_APP_URL;
+  return `${url}${path}`;
 }
 
 // Utils from precedent.dev

@@ -1,11 +1,10 @@
-import ApplicationGridCient from "@/components/app-grid-client";
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { ApplicationListByCategoryQueryResult, ApplicationListOfFeaturedQueryResult, ApplicationListOfRecentQueryResult, AppTypeQueryResult } from "@/sanity.types";
+import { AppListByTypeQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { applicationListByCategoryQuery, applicationListOfFeaturedQuery, applicationListOfRecentQuery, appTypeQuery } from "@/sanity/lib/queries";
-import { urlForImageWithSize } from "@/sanity/lib/utils";
+import { appListByTypeQuery } from "@/sanity/lib/queries";
 import { Metadata } from "next";
+import AppGridClient from "@/components/app-grid-client";
 
 interface AppTypePageProps {
     params: {
@@ -23,8 +22,8 @@ export async function generateMetadata({
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('generateMetadata, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const appTypeQueryResult = await sanityFetch<AppTypeQueryResult>({
-        query: appTypeQuery,
+    const appTypeQueryResult = await sanityFetch<AppListByTypeQueryResult>({
+        query: appListByTypeQuery,
         params: {
             ...queryParams,
             slug: type,
@@ -59,25 +58,25 @@ export default async function AppListPage({ params }: AppTypePageProps) {
     const category = type;
     console.log('AppListPage, category:', category);
 
-    let applicationListQueryResult: ApplicationListByCategoryQueryResult | ApplicationListOfFeaturedQueryResult | ApplicationListOfRecentQueryResult;
+    let applicationListQueryResult: AppListByTypeQueryResult;
     if (category === 'featured') {
-        applicationListQueryResult = await sanityFetch<ApplicationListOfFeaturedQueryResult>({
-            query: applicationListOfFeaturedQuery,
+        applicationListQueryResult = await sanityFetch<AppListByTypeQueryResult>({
+            query: appListByTypeQuery,
             params: {
                 ...queryParams,
             }
         });
     } else if (category === 'new') { // TODO(javayhu) may not be limited
-        applicationListQueryResult = await sanityFetch<ApplicationListOfRecentQueryResult>({
-            query: applicationListOfRecentQuery,
+        applicationListQueryResult = await sanityFetch<AppListByTypeQueryResult>({
+            query: appListByTypeQuery,
             params: {
                 ...queryParams,
                 limit: 24,
             }
         });
     } else {
-        applicationListQueryResult = await sanityFetch<ApplicationListByCategoryQueryResult>({
-            query: applicationListByCategoryQuery,
+        applicationListQueryResult = await sanityFetch<AppListByTypeQueryResult>({
+            query: appListByTypeQuery,
             params: {
                 ...queryParams,
                 categorySlug: category 
@@ -86,7 +85,7 @@ export default async function AppListPage({ params }: AppTypePageProps) {
     }
 
     return (
-        <ApplicationGridCient lang={lang} itemList={applicationListQueryResult}
+        <AppGridClient lang={lang} itemList={applicationListQueryResult}
             category={category} />
     );
 }

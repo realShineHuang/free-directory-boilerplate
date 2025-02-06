@@ -19,7 +19,7 @@ export function BillingFormButton({
   offer,
   subscriptionPlan,
 }: BillingFormButtonProps) {
-  let [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const stripeId = offer.stripeIds[year ? "yearly" : "monthly"];
   
   if (!stripeId) {
