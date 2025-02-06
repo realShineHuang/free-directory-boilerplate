@@ -1,6 +1,7 @@
 import GoogleAnalytics from "./google-analytics";
 // import MicrosoftAnalytics from "./clarity-analytics";
 import { OpenPanelComponent } from '@openpanel/nextjs';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 
 export function Analytics() {
     if (process.env.NODE_ENV !== "production") {
@@ -9,7 +10,6 @@ export function Analytics() {
 
     return (
         <>
-
             {/* https://docs.openpanel.dev/docs/sdks/nextjs#options */}
             <OpenPanelComponent
                 clientId="553f968f-8f6b-470e-9146-612e6909eaf3"
@@ -19,11 +19,10 @@ export function Analytics() {
             />
 
             {/* vercel analytics */}
-            {/* <Analytics /> */}
-            {/* <SpeedInsights /> */}
+            <VercelAnalytics />
 
             {/* google analytics */}
-            {/* <GoogleAnalytics /> */}
+            <GoogleAnalytics />
 
             {/* clarity analytics */}
             {/* 20240603, I can confirm that this is working but it slows down the site */}

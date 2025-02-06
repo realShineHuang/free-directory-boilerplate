@@ -2,27 +2,21 @@
 
 import Script from "next/script";
 
-const GoogleAnalytics = () => {
+export default function GoogleAnalytics() {
     return (
         <>
             <Script
+                src="https://www.googletagmanager.com/gtag/js?id=G-838RGK2SWT"
                 strategy="afterInteractive"
-                src={`https://www.googletagmanager.com/gtag/js?id=G-0JFX0BMGRE`}
             />
-            <Script
-                id="google-analytics-init"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                    __html: `
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-                    gtag('config', 'G-0JFX0BMGRE');
-                    `,
-                }}
-            />
+                    gtag('config', 'G-838RGK2SWT');
+                `}
+            </Script>
         </>
-    )
+    );
 }
-
-export default GoogleAnalytics
