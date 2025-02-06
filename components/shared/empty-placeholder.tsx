@@ -3,11 +3,14 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/shared/icons"
 
-type EmptyPlaceholderProps = React.HTMLAttributes<HTMLDivElement>;
+interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-type EmptyPlaceholderIconProps = React.HTMLAttributes<HTMLDivElement>;
+interface EmptyPlaceholderIconProps {
+  name: keyof typeof Icons;
+  className?: string;
+}
 
-type EmptyPlaceholderTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
+interface EmptyPlaceholderTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 export function EmptyPlaceholder({
   className,
@@ -29,11 +32,6 @@ export function EmptyPlaceholder({
   )
 }
 
-interface EmptyPlaceholderIconProps extends Partial<React.SVGProps<SVGSVGElement>> {
-  name: keyof typeof Icons;
-  ref?: ((instance: SVGSVGElement | null) => void) | React.RefObject<SVGSVGElement> | null;
-}
-
 EmptyPlaceholder.Icon = function EmptyPlaceHolderIcon({
   name,
   className,
@@ -52,20 +50,17 @@ EmptyPlaceholder.Icon = function EmptyPlaceHolderIcon({
   )
 }
 
-interface EmptyPlacholderTitleProps
-  extends React.HTMLAttributes<HTMLHeadingElement> { }
-
 EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
   className,
   ...props
-}: EmptyPlacholderTitleProps) {
+}: EmptyPlaceholderTitleProps) {
   return (
     <h2 className={cn("mt-6 text-xl font-semibold", className)} {...props} />
   )
 }
 
 interface EmptyPlaceholderDescriptionProps
-  extends React.HTMLAttributes<HTMLParagraphElement> { }
+  extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 EmptyPlaceholder.Description = function EmptyPlaceholderDescription({
   className,
