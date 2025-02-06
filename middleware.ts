@@ -13,26 +13,14 @@ import { i18n } from "./i18n-config";
 import authConfig from "./auth.config";
 
 function getLocale(request: NextRequest): string {
-  // 直接返回 'en' 作为默认语言
+  // 检查 cookie - 如果用户手动切换过语言,保持他们的选择
+  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
+  if (cookieLocale && i18n.locales.includes(cookieLocale as any)) {
+    return cookieLocale;
+  }
+
+  // 默认返回英文,不再检查浏览器语言偏好
   return 'en';
-  
-  // 原有的语言协商逻辑注释掉
-  /*
-  // Negotiator expects plain object so we need to transform headers
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales;
-
-  // Use negotiator and intl-localematcher to get best locale
-  let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-    locales,
-  );
-
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-  return locale;
-  */
 }
 
 const { auth: middleware } = NextAuth(authConfig);
