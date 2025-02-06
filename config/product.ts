@@ -2,7 +2,7 @@ import { ProductConfig } from "types";
 
 const enConfig: ProductConfig = {
     title: 'Research Topics',
-    subtitle: 'Discover and explore the latest Deep Research reports faster and better',
+    subtitle: 'Discover and explore the latest Deep Research reports',
     submitButton: 'Submit Report',
     details: 'Details',
     introduction: 'Introduction',
@@ -18,7 +18,7 @@ const enConfig: ProductConfig = {
 
 const zhConfig: ProductConfig = {
     title: '研究主题',
-    subtitle: '更快更好地发现和探索最新深度研究报告',
+    subtitle: '发现和探索最新深度研究报告',
     submitButton: '提交报告',
     details: '详情',
     introduction: '简介',

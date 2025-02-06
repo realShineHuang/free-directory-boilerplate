@@ -5,7 +5,7 @@ const site_url = env.NEXT_PUBLIC_APP_URL;
 
 export const enSiteConfig: SiteConfig = {
   name: "DeepResearch.report",
-  title: "DeepResearch - The Best Deep Research Report Directory",
+  title: "DeepResearch.report - Best Deep Research Report Directory",
   description:
     "A comprehensive directory of Deep Research reports and findings.",
   url: site_url,
