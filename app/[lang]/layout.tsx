@@ -11,6 +11,8 @@ import { Toaster } from 'sonner';
 import { i18n, type Locale } from "../../i18n-config";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";
+import { ErrorBoundary } from '@/components/error-boundary';
+import { PerformanceMetrics } from '@/components/performance-metrics';
 // import NextTopLoader from 'nextjs-toploader';
 
 // https://nextjs.org/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes#segment-runtime-option
@@ -98,26 +100,29 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
           fontSourceSerif.variable, // font for headings
         )}
       >
-        <SessionProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {/* spinner shows at top right, shadow={false} */}
-            {/* https://www.npmjs.com/package/nextjs-toploader */}
-            {/* NextTopLoader is missleading, page is ready but loader is still there */}
-            {/* <NextTopLoader color="#7C3AED" height={1}
-              initialPosition={0.1}
-              shadow={false}
-              showSpinner={false} /> */}
+        <ErrorBoundary>
+          <SessionProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              {/* spinner shows at top right, shadow={false} */}
+              {/* https://www.npmjs.com/package/nextjs-toploader */}
+              {/* NextTopLoader is missleading, page is ready but loader is still there */}
+              {/* <NextTopLoader color="#7C3AED" height={1}
+                initialPosition={0.1}
+                shadow={false}
+                showSpinner={false} /> */}
 
-            {children}
+              {children}
 
-            {/* https://sonner.emilkowal.ski/toaster */}
-            <Toaster richColors position="top-right" offset={64} />
-            <ModalProvider lang={lang} />
-            <TailwindIndicator />
+              {/* https://sonner.emilkowal.ski/toaster */}
+              <Toaster richColors position="top-right" offset={64} />
+              <ModalProvider lang={lang} />
+              <TailwindIndicator />
 
-            <Analytics />
-          </ThemeProvider>
-        </SessionProvider>
+              <Analytics />
+              <PerformanceMetrics />
+            </ThemeProvider>
+          </SessionProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )
