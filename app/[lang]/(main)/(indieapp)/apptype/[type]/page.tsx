@@ -1,8 +1,8 @@
 import { AllSiteConfigs } from "@/config/site";
 import { COMMON_PARAMS } from "@/lib/constants";
-import { AppListByTypeQueryResult } from "@/sanity.types";
+import { AppTypeQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { appListByTypeQuery } from "@/sanity/lib/queries";
+import { appTypeQuery } from "@/sanity/lib/queries";
 import { Metadata } from "next";
 import AppGridClient from "@/components/app-grid-client";
 
@@ -22,8 +22,8 @@ export async function generateMetadata({
     const queryParams = { ...COMMON_PARAMS, lang };
     // console.log('generateMetadata, queryParams:', queryParams); // queryParams: { defaultLocale: 'en', lang: 'en' }
 
-    const appTypeQueryResult = await sanityFetch<AppListByTypeQueryResult>({
-        query: appListByTypeQuery,
+    const appTypeQueryResult = await sanityFetch<AppTypeQueryResult>({
+        query: appTypeQuery,
         params: {
             ...queryParams,
             slug: type,
@@ -58,25 +58,25 @@ export default async function AppListPage({ params }: AppTypePageProps) {
     const category = type;
     console.log('AppListPage, category:', category);
 
-    let applicationListQueryResult: AppListByTypeQueryResult;
+    let applicationListQueryResult: AppTypeQueryResult;
     if (category === 'featured') {
-        applicationListQueryResult = await sanityFetch<AppListByTypeQueryResult>({
-            query: appListByTypeQuery,
+        applicationListQueryResult = await sanityFetch<AppTypeQueryResult>({
+            query: appTypeQuery,
             params: {
                 ...queryParams,
             }
         });
     } else if (category === 'new') { // TODO(javayhu) may not be limited
-        applicationListQueryResult = await sanityFetch<AppListByTypeQueryResult>({
-            query: appListByTypeQuery,
+        applicationListQueryResult = await sanityFetch<AppTypeQueryResult>({
+            query: appTypeQuery,
             params: {
                 ...queryParams,
                 limit: 24,
             }
         });
     } else {
-        applicationListQueryResult = await sanityFetch<AppListByTypeQueryResult>({
-            query: appListByTypeQuery,
+        applicationListQueryResult = await sanityFetch<AppTypeQueryResult>({
+            query: appTypeQuery,
             params: {
                 ...queryParams,
                 categorySlug: category 
